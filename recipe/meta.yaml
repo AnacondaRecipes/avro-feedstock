@@ -1,6 +1,6 @@
 {% set name = "avro" %}
 {% set version = "1.11.3" %}
-{% set hash = "5d7cc534873d7fce31fb97b9abb7ccd15d6de728" %}
+{% set hash = "bcd838a5456b16b5b506fe9a630f0eb3f555ff0f" %}
 
 package:
     name: {{ name }}
