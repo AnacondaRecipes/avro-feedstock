@@ -28,13 +28,17 @@ requirements:
     - typing-extensions  # [py<38]
 
 test:
+  source_files:
+    - avro/test
   imports:
     - avro
   commands:
     - pip check
     - avro --help
+    - pytest avro/test
   requires:
     - pip
+    - pytest
 
 about:
   home: https://avro.apache.org
