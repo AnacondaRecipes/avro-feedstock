@@ -38,10 +38,11 @@ test:
 
 about:
   home: https://avro.apache.org
-  license: Apache 2.0
+  license: Apache-2.0
   license_file:
     - avro/LICENSE
     - avro/NOTICE
+  license_family: Apache
   summary: Avro is a serialization and RPC framework.
   description: |
     Apache Avro™ is a data serialization system.
@@ -53,7 +54,6 @@ about:
     * Simple integration with dynamic languages. Code generation is not required to read or write data files nor to use
       or implement RPC protocols. Code generation as an optional optimization, only worth implementing for statically
       typed languages.
-  license_family: Apache-2.0
   doc_url: https://avro.apache.org/docs/
   dev_url: https://github.com/apache/avro
 
