@@ -14,7 +14,7 @@ build:
   skip: true  # [py2k]
   entry_points:
     - avro = avro.__main__:main
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   number: 0
 
 requirements:
