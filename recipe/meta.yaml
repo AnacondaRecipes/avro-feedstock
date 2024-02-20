@@ -1,44 +1,65 @@
-{% set version = "1.8.2" %}
-{% set hash = "5d7cc534873d7fce31fb97b9abb7ccd15d6de728" %}
+{% set name = "avro" %}
+{% set version = "1.11.3" %}
+{% set sha256 = "3393bb5139f9cf0791d205756ce1e39a5b58586af5b153d6a3b5a199610e9d17" %}
 
 package:
-    name: avro
+    name: {{ name }}
     version: {{ version }}
 
 source:
-    fn: avro-c-{{ version }}.tar.gz
-    url: https://archive.apache.org/dist/avro/avro-{{ version }}/c/avro-c-{{ version }}.tar.gz
-    sha1: {{ hash }}
+    url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/avro-{{ version }}.tar.gz
+    sha256: {{ sha256 }}
 
 build:
-    number: 1000
-    skip: True  # [win]
+  skip: true  # [py2k]
+  entry_points:
+    - avro = avro.__main__:main
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  number: 0
 
 requirements:
-    build:
-        - cmake
-        - pkg-config  # [osx]
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-    host:
-        - snappy
-        - jansson
-        - xz
-        - zlib
-    run:
-        - xz
-        - snappy
-        - jansson
-        - zlib
+  host:
+    - python
+    - setuptools
+    - wheel
+    - pip
+  run:
+    - python
+    - typing-extensions  # [py<38]
 
 test:
-    commands:
-        - test -f ${PREFIX}/lib/libavro.a  # [unix]
+  source_files:
+    - avro/test
+  imports:
+    - avro
+  commands:
+    - pip check
+    - avro --help
+    - pytest avro/test
+  requires:
+    - pip
+    - pytest
 
 about:
-  home: http://hadoop.apache.org/avro
-  license: Apache 2.0
-  summary: 'Avro is a serialization and RPC framework.'
+  home: https://avro.apache.org
+  license: Apache-2.0
+  license_file:
+    - avro/LICENSE
+    - avro/NOTICE
+  license_family: Apache
+  summary: Avro is a serialization and RPC framework.
+  description: |
+    Apache Avro is a data serialization system.
+    Avro provides:
+    * Rich data structures.
+    * A compact, fast, binary data format.
+    * A container file, to store persistent data.
+    * Remote procedure call (RPC).
+    * Simple integration with dynamic languages. Code generation is not required to read or write data files nor to use
+      or implement RPC protocols. Code generation as an optional optimization, only worth implementing for statically
+      typed languages.
+  doc_url: https://avro.apache.org/docs/
+  dev_url: https://github.com/apache/avro
 
 
 extra:
