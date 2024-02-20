@@ -49,7 +49,7 @@ about:
   license_family: Apache
   summary: Avro is a serialization and RPC framework.
   description: |
-    Apache Avro™ is a data serialization system.
+    Apache Avro is a data serialization system.
     Avro provides:
     * Rich data structures.
     * A compact, fast, binary data format.
