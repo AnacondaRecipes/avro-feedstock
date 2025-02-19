@@ -1,6 +1,5 @@
 {% set name = "avro" %}
-{% set version = "1.11.3" %}
-{% set sha256 = "3393bb5139f9cf0791d205756ce1e39a5b58586af5b153d6a3b5a199610e9d17" %}
+{% set version = "1.12.0" %}
 
 package:
     name: {{ name }}
@@ -8,10 +7,10 @@ package:
 
 source:
     url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/avro-{{ version }}.tar.gz
-    sha256: {{ sha256 }}
+    sha256: cad9c53b23ceed699c7af6bddced42e2c572fd6b408c257a7d4fc4e8cf2e2d6b
 
 build:
-  skip: true  # [py2k]
+  skip: true  # [py<37 or py>311]
   entry_points:
     - avro = avro.__main__:main
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
@@ -20,7 +19,7 @@ build:
 requirements:
   host:
     - python
-    - setuptools
+    - setuptools >=40.8.0
     - wheel
     - pip
   run:
@@ -34,11 +33,13 @@ test:
     - avro
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - avro --help
-    - pytest avro/test
+    - pytest -vv avro/test
   requires:
     - pip
-    - pytest
+    # Some tests are failing to collect with pytest >=8
+    - pytest <8
 
 about:
   home: https://avro.apache.org
