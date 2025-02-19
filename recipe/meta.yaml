@@ -10,7 +10,7 @@ source:
     sha256: cad9c53b23ceed699c7af6bddced42e2c572fd6b408c257a7d4fc4e8cf2e2d6b
 
 build:
-  skip: true  # [py<37 or py>311]
+  skip: true  # [py<37]
   entry_points:
     - avro = avro.__main__:main
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
