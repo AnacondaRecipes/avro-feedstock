@@ -35,7 +35,10 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - avro --help
-    - pytest -vv avro/test
+    - pytest -vv avro/test  # [not win]
+    # test_json_pretty has line ending issues on windows
+    # test_write_csv has encoding issues
+    - pytest -vv avro/test -k "not (test_json_pretty or test_write_csv)"  # [win]
   requires:
     - pip
     # Some tests are failing to collect with pytest >=8
