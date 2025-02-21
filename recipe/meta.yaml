@@ -49,7 +49,6 @@ about:
   license: Apache-2.0
   license_file:
     - avro/LICENSE
-    - avro/NOTICE
   license_family: Apache
   summary: Avro is a serialization and RPC framework.
   description: |
